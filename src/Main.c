@@ -7,7 +7,7 @@
 
 // a cell of the Sudoku
 struct Cell {
-	char value;
+	unsigned char value;
 	uint16_t *row;
 	uint16_t *column;
 	uint16_t *block;
