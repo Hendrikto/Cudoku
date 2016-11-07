@@ -7,9 +7,9 @@
 // a cell of the Sudoku
 struct Cell {
 	char value;
-	int16_t *row;
-	int16_t *column;
-	int16_t *block;
+	uint16_t *row;
+	uint16_t *column;
+	uint16_t *block;
 };
 
 int main(int argc, char** argv) {
