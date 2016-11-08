@@ -5,6 +5,8 @@
  * @author: Hendrik Werner
  */
 
+#define ALL_NUMBERS_ALLOWED 1022
+
 // a cell of the Sudoku
 struct Cell {
 	unsigned char value;
