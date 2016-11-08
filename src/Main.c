@@ -22,6 +22,9 @@ struct Sudoku {
 	uint16_t blocks[3][3];
 };
 
+/**
+ * Generate a Sudoku and return a pointer to it (which must be freed).
+ */
 struct Sudoku *generate_sudoku() {
 	struct Sudoku *sudoku = malloc(sizeof(struct Sudoku));
 	for (int i = 0; i < 9; i++) {
