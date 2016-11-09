@@ -102,6 +102,22 @@ void set_disallowed(struct Cell *cell, unsigned char value) {
 	set_disallowed_area(cell->block, value);
 }
 
+/**
+ * Set the value of a given cell to a given value and update its the areas.
+ */
+void set_value(struct Cell *cell, unsigned char value) {
+	cell->value = value;
+	set_disallowed(cell, value);
+}
+
+/**
+ * Clear a given cell by setting its value to 0 and updating its areas.
+ */
+void clear(struct Cell *cell) {
+	set_allowed(cell, cell->value);
+	cell->value = 0;
+}
+
 int main(int argc, char** argv) {
 	return EXIT_SUCCESS;
 }
