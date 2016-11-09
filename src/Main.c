@@ -82,6 +82,26 @@ uint16_t is_allowed(struct Cell *cell, unsigned char value) {
 		&& is_allowed_area(cell->block, value);
 }
 
+void set_allowed_area(uint16_t *area, unsigned char value) {
+	*area = *area | (1 << value);
+}
+
+void set_allowed(struct Cell *cell, unsigned char value) {
+	set_allowed_area(cell->row, value);
+	set_allowed_area(cell->column, value);
+	set_allowed_area(cell->block, value);
+}
+
+void set_disallowed_area(uint16_t *area, unsigned char value) {
+	*area = *area & ~(1 << value);
+}
+
+void set_disallowed(struct Cell *cell, unsigned char value) {
+	set_disallowed_area(cell->row, value);
+	set_disallowed_area(cell->column, value);
+	set_disallowed_area(cell->block, value);
+}
+
 int main(int argc, char** argv) {
 	return EXIT_SUCCESS;
 }
