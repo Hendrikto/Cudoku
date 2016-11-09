@@ -44,6 +44,16 @@ struct Sudoku *generate_sudoku() {
 	return sudoku;
 }
 
+/**
+ * Return a character representing the value given.
+ */
+char to_character(unsigned char value) {
+	if (value) {
+		return '0' + value;
+	}
+	return '.';
+}
+
 int main(int argc, char** argv) {
 	return EXIT_SUCCESS;
 }
