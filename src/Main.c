@@ -66,6 +66,13 @@ char *to_string(struct Sudoku *sudoku) {
 	return str;
 }
 
+/**
+ * Check whether a given value is allowed in a given area.
+ */
+uint16_t is_allowed_area(uint16_t *area, unsigned char value) {
+	return *area & (1 << value);
+}
+
 int main(int argc, char** argv) {
 	return EXIT_SUCCESS;
 }
