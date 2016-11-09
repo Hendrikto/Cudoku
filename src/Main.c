@@ -73,6 +73,15 @@ uint16_t is_allowed_area(uint16_t *area, unsigned char value) {
 	return *area & (1 << value);
 }
 
+/**
+ * Check whether a given value is allowed for a given Cell.
+ */
+uint16_t is_allowed(struct Cell *cell, unsigned char value) {
+	return is_allowed_area(cell->row, value)
+		&& is_allowed_area(cell->column, value)
+		&& is_allowed_area(cell->block, value);
+}
+
 int main(int argc, char** argv) {
 	return EXIT_SUCCESS;
 }
