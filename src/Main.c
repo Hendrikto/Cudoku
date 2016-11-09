@@ -55,7 +55,7 @@ char to_character(unsigned char value) {
 }
 
 /**
- * Return a string representation of the Sudoku given.
+ * Return a string representation of the Sudoku given (which must be freed).
  */
 char *to_string(struct Sudoku *sudoku) {
 	char *str = malloc(82);
