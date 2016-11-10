@@ -80,20 +80,32 @@ uint16_t is_allowed(struct Cell *cell, unsigned char value) {
 		&& is_allowed_area(cell->block, value);
 }
 
+/**
+ * Set the flag of a given area corresponding to a given value to 1.
+ */
 void set_allowed_area(uint16_t *area, unsigned char value) {
 	*area = *area | (1 << value);
 }
 
+/**
+ * Set flags of all areas of a given cell corresponding to a given value to 1.
+ */
 void set_allowed(struct Cell *cell, unsigned char value) {
 	set_allowed_area(cell->row, value);
 	set_allowed_area(cell->column, value);
 	set_allowed_area(cell->block, value);
 }
 
+/**
+ * Set the flag of a given area corresponding to a given value to 0.
+ */
 void set_disallowed_area(uint16_t *area, unsigned char value) {
 	*area = *area & ~(1 << value);
 }
 
+/**
+ * Set flags of all areas of a given cell corresponding to a given value to 0.
+ */
 void set_disallowed(struct Cell *cell, unsigned char value) {
 	set_disallowed_area(cell->row, value);
 	set_disallowed_area(cell->column, value);
