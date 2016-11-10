@@ -28,16 +28,14 @@ struct Sudoku {
  */
 struct Sudoku *generate_sudoku() {
 	struct Sudoku *sudoku = malloc(sizeof(struct Sudoku));
-	int i = 0;
-	for (int x = 0; x < 9; x++) {
+	for (int x = 0, i = 0; x < 9; x++) {
 		sudoku->rows[x] = ALL_NUMBERS_ALLOWED;
 		sudoku->columns[x] = ALL_NUMBERS_ALLOWED;
 		sudoku->blocks[x / 3][x % 3] = ALL_NUMBERS_ALLOWED;
-		for (int y = 0; y < 9; y++) {
+		for (int y = 0; y < 9; y++, i++) {
 			sudoku->cells[i].row = &sudoku->rows[y];
 			sudoku->cells[i].column = &sudoku->columns[x];
 			sudoku->cells[i].block = &sudoku->blocks[y / 3][x / 3];
-			i++;
 		}
 	}
 	sudoku->empty = 81;
