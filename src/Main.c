@@ -137,7 +137,7 @@ int backtrack(struct Sudoku *sudoku) {
 	}
 	for (int i = 0; i < 81; i++) {
 		struct Cell *cell = &sudoku->cells[i];
-		if (cell->value == 0) {
+		if (!cell->value) {
 			for (int v = 1; v <= 9; v++) {
 				if (is_allowed(cell, v)) {
 					set_value(cell, v);
