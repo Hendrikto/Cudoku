@@ -17,6 +17,7 @@ struct Cell {
 
 struct Sudoku {
 	struct Cell cells[81];
+	unsigned char empty;
 	uint16_t rows[9];
 	uint16_t columns[9];
 	uint16_t blocks[3][3];
@@ -41,6 +42,7 @@ struct Sudoku *generate_sudoku() {
 			i++;
 		}
 	}
+	sudoku->empty = 81;
 	return sudoku;
 }
 
