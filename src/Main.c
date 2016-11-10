@@ -33,6 +33,7 @@ struct Sudoku *generate_sudoku() {
 		sudoku->columns[x] = ALL_NUMBERS_ALLOWED;
 		sudoku->blocks[x / 3][x % 3] = ALL_NUMBERS_ALLOWED;
 		for (int y = 0; y < 9; y++, i++) {
+			sudoku->cells[i].value = 0;
 			sudoku->cells[i].row = &sudoku->rows[y];
 			sudoku->cells[i].column = &sudoku->columns[x];
 			sudoku->cells[i].block = &sudoku->blocks[y / 3][x / 3];
