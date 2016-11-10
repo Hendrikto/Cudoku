@@ -131,6 +131,14 @@ void clear(struct Cell *cell) {
 }
 
 /**
+ * Set the cell with a given index of a given Sudoku to a given value.
+ */
+void set_cell(struct Sudoku *sudoku, size_t cell, unsigned char value) {
+	set_value(&sudoku->cells[cell], value);
+	sudoku->empty--;
+}
+
+/**
  * Read in a Sudoku from a given seed. Everything other than 1..9 is treated as
  * an empty cell.
  */
@@ -140,8 +148,7 @@ void read(struct Sudoku *sudoku, char *seed) {
 		if (!(c = seed[i])) {
 			return;
 		} else if (isdigit(c) && c != '0') {
-			set_value(&sudoku->cells[i], c - '0');
-			sudoku->empty--;
+			set_cell(sudoku, i, c - '0');
 		}
 	}
 }
@@ -158,8 +165,7 @@ int backtrack(struct Sudoku *sudoku) {
 		if (!cell->value) {
 			for (int v = 1; v <= 9; v++) {
 				if (is_allowed(cell, v)) {
-					set_value(cell, v);
-					sudoku->empty--;
+					set_cell(sudoku, i, v);
 					if (backtrack(sudoku)) {
 						return 1;
 					}
