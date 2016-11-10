@@ -115,7 +115,7 @@ void set_disallowed(struct Cell *cell, unsigned char value) {
 }
 
 /**
- * Set the value of a given cell to a given value and update its the areas.
+ * Set the value of a given cell to a given value and update its areas.
  */
 void set_value(struct Cell *cell, unsigned char value) {
 	cell->value = value;
