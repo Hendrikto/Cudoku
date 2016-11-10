@@ -120,6 +120,33 @@ void clear(struct Cell *cell) {
 	cell->value = 0;
 }
 
+/**
+ * Solve a given Sudoku using backtracking.
+ */
+int backtrack(struct Sudoku *sudoku) {
+	if (sudoku->empty == 0) {
+		return 1;
+	}
+	for (int i = 0; i < 81; i++) {
+		struct Cell *cell = &sudoku->cells[i];
+		if (cell->value == 0) {
+			for (int v = 1; v <= 9; v++) {
+				if (is_allowed(cell, v)) {
+					set_value(cell, v);
+					sudoku->empty--;
+					if (backtrack(sudoku)) {
+						return 1;
+					}
+					clear(cell);
+					sudoku->empty++;
+				}
+			}
+			return 0;
+		}
+	}
+	return 0; // satisfy the compiler
+}
+
 int main(int argc, char** argv) {
 	return EXIT_SUCCESS;
 }
