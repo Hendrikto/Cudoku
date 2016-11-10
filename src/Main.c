@@ -28,13 +28,11 @@ struct Sudoku {
  */
 struct Sudoku *generate_sudoku() {
 	struct Sudoku *sudoku = malloc(sizeof(struct Sudoku));
-	for (int i = 0; i < 9; i++) {
-		sudoku->rows[i] = ALL_NUMBERS_ALLOWED;
-		sudoku->columns[i] = ALL_NUMBERS_ALLOWED;
-		sudoku->blocks[i / 3][i % 3] = ALL_NUMBERS_ALLOWED;
-	}
 	int i = 0;
 	for (int x = 0; x < 9; x++) {
+		sudoku->rows[x] = ALL_NUMBERS_ALLOWED;
+		sudoku->columns[x] = ALL_NUMBERS_ALLOWED;
+		sudoku->blocks[x / 3][x % 3] = ALL_NUMBERS_ALLOWED;
 		for (int y = 0; y < 9; y++) {
 			sudoku->cells[i].row = &sudoku->rows[y];
 			sudoku->cells[i].column = &sudoku->columns[x];
