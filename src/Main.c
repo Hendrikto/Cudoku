@@ -1,3 +1,4 @@
+#include <ctype.h>
 #include <stdint.h>
 #include <stdlib.h>
 
@@ -127,6 +128,22 @@ void set_value(struct Cell *cell, unsigned char value) {
 void clear(struct Cell *cell) {
 	set_allowed(cell, cell->value);
 	cell->value = 0;
+}
+
+/**
+ * Read in a Sudoku from a given seed. Everything other than 1..9 is treated as
+ * an empty cell.
+ */
+void read(struct Sudoku *sudoku, char *seed) {
+	for (int i = 0; i < 81; i++) {
+		char c;
+		if (!(c = seed[i])) {
+			return;
+		} else if (isdigit(c) && c != '0') {
+			set_value(&sudoku->cells[i], c - '0');
+			sudoku->empty--;
+		}
+	}
 }
 
 /**
