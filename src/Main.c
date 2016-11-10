@@ -139,6 +139,14 @@ void set_cell(struct Sudoku *sudoku, size_t cell, unsigned char value) {
 }
 
 /**
+ * Clear the cell with a given index of a given Sudoku.
+ */
+void clear_cell(struct Sudoku *sudoku, size_t cell) {
+	clear(&sudoku->cells[cell]);
+	sudoku->empty++;
+}
+
+/**
  * Read in a Sudoku from a given seed. Everything other than 1..9 is treated as
  * an empty cell.
  */
@@ -169,8 +177,7 @@ int backtrack(struct Sudoku *sudoku) {
 					if (backtrack(sudoku)) {
 						return 1;
 					}
-					clear(cell);
-					sudoku->empty++;
+					clear_cell(sudoku, i);
 				}
 			}
 			return 0;
