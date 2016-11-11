@@ -1,4 +1,5 @@
 #include <ctype.h>
+#include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
@@ -97,14 +98,14 @@ char *to_pretty_string(struct Sudoku *sudoku) {
 /**
  * Check whether a given value is allowed in a given area.
  */
-uint16_t is_allowed_area(uint16_t *area, unsigned char value) {
+bool is_allowed_area(uint16_t *area, unsigned char value) {
 	return *area & (1 << value);
 }
 
 /**
  * Check whether a given value is allowed for a given Cell.
  */
-uint16_t is_allowed(struct Cell *cell, unsigned char value) {
+bool is_allowed(struct Cell *cell, unsigned char value) {
 	return is_allowed_area(cell->row, value)
 		&& is_allowed_area(cell->column, value)
 		&& is_allowed_area(cell->block, value);
@@ -192,9 +193,9 @@ void read(struct Sudoku *sudoku, char *seed) {
 /**
  * Solve a given Sudoku using backtracking.
  */
-int backtrack(struct Sudoku *sudoku) {
+bool backtrack(struct Sudoku *sudoku) {
 	if (sudoku->empty == 0) {
-		return 1;
+		return true;
 	}
 	for (int i = 0; i < 81; i++) {
 		struct Cell *cell = &sudoku->cells[i];
@@ -203,15 +204,15 @@ int backtrack(struct Sudoku *sudoku) {
 				if (is_allowed(cell, v)) {
 					set_cell(sudoku, i, v);
 					if (backtrack(sudoku)) {
-						return 1;
+						return true;
 					}
 					clear_cell(sudoku, i);
 				}
 			}
-			return 0;
+			return false;
 		}
 	}
-	return 0; // satisfy the compiler
+	return false; // satisfy the compiler
 }
 
 int main(int argc, char** argv) {
