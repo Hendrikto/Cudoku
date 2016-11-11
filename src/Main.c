@@ -1,6 +1,7 @@
 #include <ctype.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include <string.h>
 
 /**
  * @author: Hendrik Werner
@@ -63,6 +64,32 @@ char *to_string(struct Sudoku *sudoku) {
 		str[i] = to_character(sudoku->cells[i].value);
 	}
 	str[81] = '\0';
+	return str;
+}
+
+/**
+ * Return a human readable string represenation of a given Sudoku (which must be
+ * freed).
+ */
+char *to_pretty_string(struct Sudoku *sudoku) {
+	char *str = malloc(245);
+	int pos = 0;
+	for (int i = 0; i < 81; i++) {
+		str[pos++] = to_character(sudoku->cells[i].value);
+		if ((i + 1) % 9 == 0) {
+			str[pos++] = '\n';
+		} else if ((i + 1) % 3 == 0) {
+			strcpy(str + pos, " | ");
+			pos += 3;
+		} else {
+			str[pos++] = ' ';
+		}
+		if (i < 80 && (i + 1) % 27 == 0) {
+			strcpy(str + pos, "------+-------+-------\n");
+			pos += 23;
+		}
+	}
+	str[pos] = '\0';
 	return str;
 }
 
