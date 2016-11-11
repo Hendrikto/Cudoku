@@ -60,10 +60,11 @@ char to_character(unsigned char value) {
  */
 char *to_string(struct Sudoku *sudoku) {
 	char *str = malloc(82);
-	for (int i = 0; i < 81; i++) {
+	int i;
+	for (i = 0; i < 81; i++) {
 		str[i] = to_character(sudoku->cells[i].value);
 	}
-	str[81] = '\0';
+	str[i] = '\0';
 	return str;
 }
 
