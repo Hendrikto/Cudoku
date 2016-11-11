@@ -70,8 +70,8 @@ char *to_string(struct Sudoku *sudoku) {
 }
 
 /**
- * Return a human readable string represenation of a given Sudoku (which must be
- * freed).
+ * Return a human readable string representation of a given Sudoku (which must
+ * be freed).
  */
 char *to_pretty_string(struct Sudoku *sudoku) {
 	char *str = malloc(245);
