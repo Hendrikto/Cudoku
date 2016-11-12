@@ -74,7 +74,7 @@ char *to_string(struct Sudoku *sudoku) {
  * be freed).
  */
 char *to_pretty_string(struct Sudoku *sudoku) {
-	char *str = malloc(245);
+	char *str = malloc(244);
 	int pos = 0;
 	for (int i = 0; i < 81; i++) {
 		str[pos++] = to_character(sudoku->cells[i].value);
@@ -91,7 +91,7 @@ char *to_pretty_string(struct Sudoku *sudoku) {
 			pos += 23;
 		}
 	}
-	str[pos] = '\0';
+	str[pos - 1] = '\0';
 	return str;
 }
 
