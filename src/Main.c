@@ -1,6 +1,7 @@
 #include <ctype.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -214,5 +215,14 @@ bool backtrack(struct Sudoku *sudoku) {
 }
 
 int main(int argc, char** argv) {
+	struct Sudoku sudoku;
+	init_sudoku(&sudoku);
+	if (argc > 1) {
+		read(&sudoku, argv[1]);
+	}
+	backtrack(&sudoku);
+	char *str = to_pretty_string(&sudoku);
+	printf("%s\n", str);
+	free(str);
 	return EXIT_SUCCESS;
 }
