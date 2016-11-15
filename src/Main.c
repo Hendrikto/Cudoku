@@ -27,10 +27,9 @@ struct Sudoku {
 };
 
 /**
- * Generate a Sudoku and return a pointer to it (which must be freed).
+ * Initialize a given Sudoku.
  */
-struct Sudoku *generate_sudoku() {
-	struct Sudoku *sudoku = malloc(sizeof(struct Sudoku));
+void init_sudoku(struct Sudoku *sudoku) {
 	for (int x = 0, i = 0; x < 9; x++) {
 		sudoku->rows[x] = ALL_NUMBERS_ALLOWED;
 		sudoku->columns[x] = ALL_NUMBERS_ALLOWED;
@@ -43,7 +42,6 @@ struct Sudoku *generate_sudoku() {
 		}
 	}
 	sudoku->empty = 81;
-	return sudoku;
 }
 
 /**
