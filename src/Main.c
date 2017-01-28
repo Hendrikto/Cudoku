@@ -49,10 +49,7 @@ void init_sudoku(struct Sudoku *sudoku) {
  * Return a character representing the value given.
  */
 char to_character(unsigned char value) {
-	if (value) {
-		return '0' + value;
-	}
-	return '.';
+	return value ? '0' + value : '.';
 }
 
 /**
