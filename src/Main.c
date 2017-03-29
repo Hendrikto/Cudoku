@@ -12,25 +12,25 @@
 #define ALL_NUMBERS_ALLOWED 1022
 
 // a cell of the Sudoku
-struct Cell {
+typedef struct Cell {
 	unsigned char value;
 	uint16_t *row;
 	uint16_t *column;
 	uint16_t *block;
-};
+} Cell;
 
-struct Sudoku {
-	struct Cell cells[81];
+typedef struct Sudoku {
+	Cell cells[81];
 	unsigned char empty;
 	uint16_t rows[9];
 	uint16_t columns[9];
 	uint16_t blocks[3][3];
-};
+} Sudoku;
 
 /**
  * Initialize a given Sudoku.
  */
-void init_sudoku(struct Sudoku *sudoku) {
+void init_sudoku(Sudoku *sudoku) {
 	for (int x = 0, i = 0; x < 9; x++) {
 		sudoku->rows[x] = ALL_NUMBERS_ALLOWED;
 		sudoku->columns[x] = ALL_NUMBERS_ALLOWED;
@@ -55,7 +55,7 @@ char to_character(unsigned char value) {
 /**
  * Return a string representation of the Sudoku given (which must be freed).
  */
-char *to_string(struct Sudoku *sudoku) {
+char *to_string(Sudoku *sudoku) {
 	char *str = malloc(82);
 	int i;
 	for (i = 0; i < 81; i++) {
@@ -69,7 +69,7 @@ char *to_string(struct Sudoku *sudoku) {
  * Return a human readable string representation of a given Sudoku (which must
  * be freed).
  */
-char *to_pretty_string(struct Sudoku *sudoku) {
+char *to_pretty_string(Sudoku *sudoku) {
 	char *str = malloc(244);
 	int pos = 0;
 	for (int i = 0; i < 81; i++) {
@@ -101,7 +101,7 @@ bool is_allowed_area(uint16_t *area, unsigned char value) {
 /**
  * Check whether a given value is allowed for a given Cell.
  */
-bool is_allowed(struct Cell *cell, unsigned char value) {
+bool is_allowed(Cell *cell, unsigned char value) {
 	return is_allowed_area(cell->row, value)
 		&& is_allowed_area(cell->column, value)
 		&& is_allowed_area(cell->block, value);
@@ -117,7 +117,7 @@ void set_allowed_area(uint16_t *area, unsigned char value) {
 /**
  * Set flags of all areas of a given cell corresponding to a given value to 1.
  */
-void set_allowed(struct Cell *cell, unsigned char value) {
+void set_allowed(Cell *cell, unsigned char value) {
 	set_allowed_area(cell->row, value);
 	set_allowed_area(cell->column, value);
 	set_allowed_area(cell->block, value);
@@ -133,7 +133,7 @@ void set_disallowed_area(uint16_t *area, unsigned char value) {
 /**
  * Set flags of all areas of a given cell corresponding to a given value to 0.
  */
-void set_disallowed(struct Cell *cell, unsigned char value) {
+void set_disallowed(Cell *cell, unsigned char value) {
 	set_disallowed_area(cell->row, value);
 	set_disallowed_area(cell->column, value);
 	set_disallowed_area(cell->block, value);
@@ -142,7 +142,7 @@ void set_disallowed(struct Cell *cell, unsigned char value) {
 /**
  * Set the value of a given cell to a given value and update its areas.
  */
-void set_value(struct Cell *cell, unsigned char value) {
+void set_value(Cell *cell, unsigned char value) {
 	cell->value = value;
 	set_disallowed(cell, value);
 }
@@ -150,7 +150,7 @@ void set_value(struct Cell *cell, unsigned char value) {
 /**
  * Clear a given cell by setting its value to 0 and updating its areas.
  */
-void clear(struct Cell *cell) {
+void clear(Cell *cell) {
 	set_allowed(cell, cell->value);
 	cell->value = 0;
 }
@@ -158,7 +158,7 @@ void clear(struct Cell *cell) {
 /**
  * Set the cell with a given index of a given Sudoku to a given value.
  */
-void set_cell(struct Sudoku *sudoku, size_t cell, unsigned char value) {
+void set_cell(Sudoku *sudoku, size_t cell, unsigned char value) {
 	set_value(&sudoku->cells[cell], value);
 	sudoku->empty--;
 }
@@ -166,7 +166,7 @@ void set_cell(struct Sudoku *sudoku, size_t cell, unsigned char value) {
 /**
  * Clear the cell with a given index of a given Sudoku.
  */
-void clear_cell(struct Sudoku *sudoku, size_t cell) {
+void clear_cell(Sudoku *sudoku, size_t cell) {
 	clear(&sudoku->cells[cell]);
 	sudoku->empty++;
 }
@@ -175,7 +175,7 @@ void clear_cell(struct Sudoku *sudoku, size_t cell) {
  * Read in a Sudoku from a given seed. Everything other than 1..9 is treated as
  * an empty cell.
  */
-void read(struct Sudoku *sudoku, char *seed) {
+void read(Sudoku *sudoku, char *seed) {
 	for (int i = 0; i < 81; i++) {
 		char c;
 		if (!(c = seed[i])) {
@@ -189,12 +189,12 @@ void read(struct Sudoku *sudoku, char *seed) {
 /**
  * Solve a given Sudoku using backtracking.
  */
-bool backtrack(struct Sudoku *sudoku) {
+bool backtrack(Sudoku *sudoku) {
 	if (sudoku->empty == 0) {
 		return true;
 	}
 	for (int i = 0; i < 81; i++) {
-		struct Cell *cell = &sudoku->cells[i];
+		Cell *cell = &sudoku->cells[i];
 		if (!cell->value) {
 			for (int v = 1; v <= 9; v++) {
 				if (is_allowed(cell, v)) {
@@ -212,7 +212,7 @@ bool backtrack(struct Sudoku *sudoku) {
 }
 
 int main(int argc, char** argv) {
-	struct Sudoku sudoku;
+	Sudoku sudoku;
 	init_sudoku(&sudoku);
 	if (argc > 1) {
 		read(&sudoku, argv[1]);
