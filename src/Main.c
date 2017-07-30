@@ -70,21 +70,21 @@ char *to_string(Sudoku *sudoku) {
  * be freed).
  */
 char *to_pretty_string(Sudoku *sudoku) {
-	char *str = malloc(244);
+	char *str = malloc(362);
 	int pos = 0;
 	for (int i = 0; i < 81; i++) {
 		str[pos++] = to_character(sudoku->cells[i].value);
 		if ((i + 1) % 9 == 0) {
 			str[pos++] = '\n';
 		} else if ((i + 1) % 3 == 0) {
-			strcpy(str + pos, " | ");
-			pos += 3;
+			strcpy(str + pos, " │ ");
+			pos += strlen(" │ ");
 		} else {
 			str[pos++] = ' ';
 		}
 		if (i < 80 && (i + 1) % 27 == 0) {
-			strcpy(str + pos, "------+-------+-------\n");
-			pos += 23;
+			strcpy(str + pos, "──────┼───────┼──────\n");
+			pos += strlen("──────┼───────┼──────\n");
 		}
 	}
 	str[pos - 1] = '\0';
